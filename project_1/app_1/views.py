@@ -11,3 +11,4 @@ def courses(request):
 
 def about(request):
     return HttpResponse('This is about page of app_1.')
+
