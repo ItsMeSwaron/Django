@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        {% for meal in meals %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="{{ meal.strMealThumb }}" class="card-img-top img-fluid" alt="{{ meal.strMeal }}" style="max-width: 300px; height: auto; margin: 0 auto;">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold">{{ meal.strMeal }}</h5>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet excepturi quia eveniet, repellat inventore debitis reiciendis quos quis, animi ipsam nobis incidunt vel magni quae consequuntur nesciunt, eligendi laboriosam corrupti!</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
