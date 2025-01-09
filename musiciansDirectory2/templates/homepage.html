@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<table class="table table-primary table-bordered">
+    <thead>
+        <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Musician Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Album Rating</th>
+        <th scope="col">Instrument Type</th>
+        <th scope="col">Album Name</th>
+        <th scope="col">Release Date</th>
+        {% if request.user.is_authenticated %}
+        <th scope="col">Actions</th>
+        {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for album in data %}
+            <tr>
+                <th scope="row">{{ album.id }}</th>
+                {% if request.user.is_authenticated %}
+                <td><a class="text-dark text-decoration-none" href="{% url 'editMusician' album.musician.id %}">{{ album.musician.firstName }} {{ album.musician.lastName }}</a></td>
+                {% else %}
+                <td><a class="text-dark text-decoration-none">{{ album.musician.firstName }} {{ album.musician.lastName }}</a></td>
+                {% endif %}
+                <td>{{ album.musician.email }}</td>
+                <td>{{ album.rating }}</td>
+                <td>{{ album.musician.instrumentType }}</td>
+                <td>{{ album.albumName }}</td>
+                <td>{{ album.releaseDate }}</td>
+                {% if request.user.is_authenticated %}
+                <td>
+                    <a href="{% url 'editAlbum' album.id %}" class="btn btn-warning">Edit</a>
+                    <a href="{% url 'deleteAlbum' album.id %}" class="btn btn-danger">Delete</a>
+                </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
