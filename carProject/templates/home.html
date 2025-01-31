@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="d-flex flex-wrap px-5 pt-3 align-items-center">
+  <div class="col-6">
+    <h1>Welcome to Cars world!!!</h1>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum, culpa, quas, cum corporis quis repudiandae perspiciatis fugit fugiat impedit nisi voluptatum error. Autem, et ab! Eum, praesentium quibusdam veniam cupiditate quia vitae harum earum assumenda! Sequi est mollitia nulla, quidem autem aliquam nemo ut placeat distinctio omnis magnam illo quia! Suscipit laborum doloribus eum inventore quam, quod consectetur praesentium deleniti excepturi minus nobis molestias nemo ducimus magni quas officiis ullam alias iure iusto consequatur harum vel illo. Sequi quasi enim hic necessitatibus at dolor nesciunt adipisci tempora eveniet odit perspiciatis, repellendus doloribus iure dolorum soluta vero. Distinctio dolores eligendi ut.</p>
+  </div>
+  <div class="col-6">
+    <img src="{% static 'header.png' %}" alt="" width="650">
+</div>
+
+<div class="d-flex col-11 bg-white flex-wrap p-4 mx-5 my-5 justify-content-center">
+  <h3>All Brands</h3>
+  <div class="d-flex col-12 p-3 bg-white justify-content-center align-items-center flex-wrap">
+
+
+    {% for br in brand %}
+    <div class="form-check mx-3 text-center">
+      <input class="form-check-input" type="radio" name="brand" id="{{br.id}}">
+      <label class="form-check-label" for="{{br.id}}">
+        <a href="{% url 'brandWiseCars' br.slug %}" class="text-decoration-none text-dark">{{br.brandName}}</a>
+      </label>
+    </div>
+    {% endfor %}
+
+  </div>
+
+  <div class="col-10 p-3">
+    <div class="text-center">
+      <h4>{{car | length}} results found</h4>
+    </div>
+    <div class="d-flex flex-wrap pt-5">
+      
+      {% for c in car %}
+  
+      <div class="col-sm-3 text-center">
+        <div class="card mx-2">
+          <div class="card-body">
+              <img src="{{c.image.url}}" class="card-img-top py-2" alt="...">
+              <h5 class="card-title"><a class=" text-decoration-none text-dark">{{c.name}}</a></h5>
+              <p class="card-text">Price: {{c.price}} </p>
+              <p>Brand: <button class="btn btn-primary btn-sm m-1" disabled> {{c.brand.brandName}} </button></p>
+              <h5 class="card-title text-center"><a class=" text-decoration-none p-1 text-dark bg-danger" href="{% url 'detailCars' c.id %}">View details</a></h5>
+            </div>
+          </div>
+        </div>
+  
+      {% endfor %}  
+
+  </div>
+</div>
+
+{% endblock %}

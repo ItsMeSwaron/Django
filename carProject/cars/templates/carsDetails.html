@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="d-flex flex-wrap bg-white col-12 col-sm-12 text-center justify-content-between align-items-center">
+  
+  <div class="col-md-6 d-flex justify-content-center">
+    <img src="{{cars.image.url}}" class="card-img-top" style="width: 100%; border-radius: 0;" alt="...">
+  </div>
+
+  <div class="card col-md-6 text-center h-100 p-4">
+    <div class="card-body">
+        <h1 class="card-title">{{cars.name}}</h1>
+        <h3 class="card-text">Price: {{cars.price}}</h3>
+        <h3 class="card-text">Available cars: {{cars.quantity}}</h3>
+        <h5 class="card-text">{{cars.description}}</h5>
+        <h3>Brand: <button class="btn btn-warning btn-sm m-1" disabled> {{cars.brand.brandName}} </button></h3>
+
+        {% if request.user.is_authenticated and cars.quantity >= 1 and request.user not in cars.purchasedBy.all%}
+
+          <div class="py-3">
+            <form method="post" style="width: 50%; margin: auto;" action="{% url 'buyNow' cars.id %}">
+                {% csrf_token %}
+                {{form | crispy}}
+                <button class="btn btn-warning">Buy now</button>
+            </form>
+          </div>
+      
+        {% endif %}
+
+    </div>
+  </div>
+
+
+</div>
+
+  {% if request.user not in cars.purchasedBy.all %}
+
+  <div class="card">
+    <h5 class="p-2">Total comments: {{comments | length}}</h5>
+    {% for comment in comments %}
+    <div class="card-body border m-2">
+      <h5><b>{{comment.name}}</b> {{comment.createdOn | date:"jS M Y H:i"}}</h5>
+      <p>{{comment.body}}</p>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="card m-2">
+    <div class="card-body">
+      <div class="py-3">
+        <form method="post">
+            {% csrf_token %}
+            <h1 class="text-center">Add comment</h1>
+            {{comment_Form | crispy}}
+            <button class="btn btn-warning">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  {% endif %}
+
+{% endblock %}

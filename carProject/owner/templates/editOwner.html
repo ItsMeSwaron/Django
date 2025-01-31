@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Edit Owner</h2>
+    <form method="post" style="width: 50%; margin: auto;">
+        {% csrf_token %}
+        {{ form | crispy }}
+        <div class="text-center mt-3">
+            <a href="{% url 'passwordChange' %}" class="btn btn-warning">Change your password</a>
+            <button type="submit" class="btn btn-success mx-2">Save Changes</button>
+            <a href="{% url 'homepage' %}" class="btn btn-secondary mx-3">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

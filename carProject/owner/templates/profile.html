@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+
+<div class="d-flex flex-wrap justify-content-center px-5 pt-5">
+    
+  {% for c in cars %}
+  
+  <div class="col-sm-3 text-center">
+    <div class="card mx-2">
+      <div class="card-body">
+          <img src="{{c.image.url}}" class="card-img-top py-2" alt="...">
+          <h5 class="card-title"><a class=" text-decoration-none text-dark">{{c.name}}</a></h5>
+          <p class="card-text">Price: {{c.price}} </p>
+          <p>Brand: <button class="btn btn-primary btn-sm m-1" disabled> {{c.brand.brandName}} </button></p>
+          <h5 class="card-title text-center"><a class=" text-decoration-none p-1 text-dark bg-danger" href="{% url 'detailCars' c.id %}">View details</a></h5>
+        </div>
+      </div>
+    </div>
+
+  {% endfor %}  
+
+
+{% endblock %} 
